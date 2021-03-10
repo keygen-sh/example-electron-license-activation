@@ -1,0 +1,24 @@
+{
+  "name": "example-electron-license-activation",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "An example of how to implement software licensing and device activation in an Electron application",
+  "main": "../main.js",
+  "author": {
+    "name": "Keygen",
+    "email": "support@keygen.sh",
+    "url": "https://github.com/keygen-sh"
+  },
+  "scripts": {
+    "postinstall": "yarn electron-rebuild"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "node-machine-id": "^1.1.12",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10"
+  }
+}

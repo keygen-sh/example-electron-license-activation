@@ -1,0 +1,109 @@
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+  background: #f7f8fb;
+  color: #000;
+  margin: 0;
+  padding: 2rem 4rem;
+}
+
+form {
+  input + button,
+  input + input {
+    margin-top: 1rem;
+  }
+}
+
+input {
+  font-family: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  line-height: 1.5;
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  background-color: #fff;
+  border: 1px solid #a6afbd;
+  border-radius: 4px;
+
+  &:focus {
+    outline-color: #0000ff;
+  }
+}
+
+button {
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  background: #0000ff;
+  border: 2px solid #0000d4;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+
+  &:active {
+    background: #0000d4;
+  }
+}
+
+code,
+pre {
+  font-family: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  color: #5f6e86;
+}
+
+table {
+  position: relative;
+  font-size: 0.875rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  tr {
+    display: table-row;
+    white-space: nowrap;
+    border-bottom: 1px solid #f3f3f3;
+
+    &:last-of-type {
+      border-bottom: 0;
+
+      td {
+        padding: 1rem 1rem 0 0;
+      }
+    }
+  }
+
+  th,
+  td {
+    padding: 1rem 1rem 1rem 0;
+    text-align: left;
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+    font-weight: 700;
+    background: #fff;
+    box-shadow: 0 -1px 0 0 #e2e2e2, 0 1px 0 0 #e2e2e2;
+  }
+
+  td {
+    display: table-cell;
+    font-size: 0.875rem;
+
+    &:last-of-type {
+      text-align: right;
+      width: 100%;
+    }
+  }
+
+  input {
+    min-width: max-content;
+  }
+}

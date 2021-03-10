@@ -1,0 +1,75 @@
+{
+  "name": "example-electron-license-activation",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "An example of how to implement software licensing and device activation in an Electron application",
+  "main": "main.js",
+  "author": {
+    "name": "Keygen",
+    "email": "support@keygen.sh",
+    "url": "https://github.com/keygen-sh"
+  },
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron .",
+    "dev": "concurrently --kill-others --success first 'rm -rf build/ && parcel watch ./src/index.html -d build/ --public-url ./ --target electron --no-hmr' 'yarn start'",
+    "build": "rm -rf build/ && parcel build ./src/index.html -d build/ --public-url ./ --target electron",
+    "dist": "rm -rf dist/ && yarn build && electron-builder build --publish never"
+  },
+  "build": {
+    "appId": "com.keygen.example",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "category": "Utility",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icon.png"
+    },
+    "win": {
+      "target": "msi",
+      "icon": "build/icon.png"
+    },
+    "files": [
+      "main.js",
+      "build/*"
+    ]
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "node-machine-id": "^1.1.12",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "7.0.0",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
+    "concurrently": "^5.3.0",
+    "electron": "^10.1.5",
+    "electron-builder": "^22.9.1",
+    "electron-reload": "^1.5.0",
+    "parcel-bundler": "^1.12.4",
+    "postcss-modules": "^3.2.2",
+    "sass": "^1.32.8"
+  },
+  "resolutions": {
+    "@babel/preset-env": "7.13.8"
+  }
+}

@@ -1,0 +1,36 @@
+.LicenseErrors {
+  position: relative;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #fff;
+  border: 2px solid #fe0000;
+  border-radius: 0.5rem;
+
+  h3 {
+    margin: 0 0 1rem;
+
+    small {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: #a6afbd;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  button {
+    background: #fe0000;
+    border: 2px solid #c52712;
+
+    &:active {
+      background: #c52712;
+    }
+  }
+}
+
+.LicenseErrorsTable {
+  overflow-x: auto;
+  border-top: 1px solid #e2e2e2;
+}
