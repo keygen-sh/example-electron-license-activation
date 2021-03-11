@@ -96,3 +96,7 @@ To package the app:
 ```
 yarn dist
 ```
+
+## Questions?
+
+Reach out at support@keygen.sh if you have any questions or concerns!
