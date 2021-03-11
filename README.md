@@ -54,16 +54,18 @@ to how we're already prompting for their license key.
 
 ## Running the example
 
-First up, configure a couple environment variables:
+First up, configure a couple environment variables.
 
 ```bash
 # Your Keygen account ID
 export KEYGEN_ACCOUNT_ID="YOUR_KEYGEN_ACCOUNT_ID"
 ```
 
-You can either run each line above within your terminal session before
-starting the app, or you can add the above contents to your `~/.bashrc`
-file and then run `source ~/.bashrc` after saving the file.
+These environment variables will be automatically inlined into the
+application's source code during the build process. You can either run
+each line above within your terminal session before building the app,
+or you can add the above contents to your `~/.bashrc` file and then
+run `source ~/.bashrc` after saving the file.
 
 Next, install dependencies with [`yarn`](https://yarnpkg.comg):
 

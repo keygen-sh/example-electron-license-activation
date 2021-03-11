@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 
 const {
+  // NOTE(ezekg) Remove the default value here in a real app. This value is
+  //             only here for example purposes.
   KEYGEN_ACCOUNT_ID = '1fddcec8-8dd3-4d8d-9b16-215cac0f9b52',
   // TODO(ezekg) Add request signature verification to prevent MITM attacks
   // TODO(ezekg) Add offline support?
