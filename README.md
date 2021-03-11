@@ -1,6 +1,6 @@
 # Example Electron License Manager
 
-A minimal [Electron](https://electronjs.org) + [React](https://reactjs.org) app built
+A minimal [Electron](https://electronjs.org) v12 + [React](https://reactjs.org) v17 app built
 with [Parcel](https://github.com/parcel-bundler/parcel), showcasing how to implement
 an in-app software licensing portal with the following functionality:
 
@@ -54,7 +54,7 @@ to how we're already prompting for their license key.
 
 ## Running the example
 
-First up, configure a couple environment variables.
+First up, configure a couple environment variables:
 
 ```bash
 # Your Keygen account ID
