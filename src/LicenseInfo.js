@@ -10,7 +10,7 @@ const LicenseInfo = () => {
   return (
     <div className={styles.LicenseInfo}>
       <h2>
-        <small>License key</small>
+        <small>{license?.attributes?.name || 'License key'}</small>
         {license?.attributes?.key || 'N/A'}
         {validation?.valid
           ? <span className={styles.LicenseInfoValidTag}>Valid</span>
@@ -20,7 +20,7 @@ const LicenseInfo = () => {
         <table>
           <thead>
             <tr>
-              <th>Purchased On</th>
+              <th>Issued On</th>
               <th>Valid Until</th>
               <th># Seats</th>
               <th>Validation Code</th>
@@ -30,14 +30,14 @@ const LicenseInfo = () => {
           <tbody>
             <tr>
               <td>
-                {created == null
-                  ? <input type='text' value='N/A' disabled={true} readOnly={true} />
-                  : <input type='date' value={created} disabled={true} readOnly={true} />}
+                {created != null
+                  ? <input type='date' value={created} disabled={true} readOnly={true} />
+                  : <input type='text' value='N/A' disabled={true} readOnly={true} />}
               </td>
               <td>
-                {expiry == null
-                  ? <input type='text' value='N/A' disabled={true} readOnly={true} />
-                  : <input type='date' value={expiry} disabled={true} readOnly={true} />}
+                {expiry != null
+                  ? <input type='date' value={expiry} disabled={true} readOnly={true} />
+                  : <input type='text' value='N/A' disabled={true} readOnly={true} />}
               </td>
               <td>
                 <strong>{machines.length}/{license?.attributes?.maxMachines || 0}</strong>
