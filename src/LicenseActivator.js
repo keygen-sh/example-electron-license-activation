@@ -31,7 +31,7 @@ const DeviceActivationInput = ({ name, platform, version, fingerprint, onNameCha
           <tbody>
             <tr>
               <td>
-                <input type='text' placeholder='Enter a name for your device' value={name || ''} onChange={e => onNameChange(e.target.value)} />
+                <input type='text' placeholder='Enter a name for your device' value={name ?? ''} onChange={e => onNameChange(e.target.value)} />
               </td>
               <td>
                 <input type='text' value={fingerprint} disabled={true} readOnly={true} />

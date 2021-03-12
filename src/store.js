@@ -71,7 +71,7 @@ export const useLicensingStore = createStore((set, get) => ({
   validateLicenseKey: async () => {
     const { key, fingerprint, listMachinesForLicense } = get()
 
-    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID}/licenses/actions/validate-key`, {
+    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/licenses/actions/validate-key`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -101,10 +101,10 @@ export const useLicensingStore = createStore((set, get) => ({
   activateMachineForLicense: async ({ name, platform, version }) => {
     const { license, fingerprint, listMachinesForLicense, validateLicenseKey } = get()
 
-    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID}/machines`, {
+    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/machines`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${license?.attributes?.metadata?.token}`,
+        'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
@@ -147,10 +147,10 @@ export const useLicensingStore = createStore((set, get) => ({
   deactivateMachineForLicense: async id => {
     const { license, validateLicenseKey, listMachinesForLicense } = get()
 
-    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID}/machines/${id}`, {
+    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/machines/${id}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${license?.attributes?.metadata?.token}`,
+        'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
         'Accept': 'application/json',
       },
     })
@@ -175,10 +175,10 @@ export const useLicensingStore = createStore((set, get) => ({
   listMachinesForLicense: async () => {
     const { license } = get()
 
-    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID}/machines`, {
+    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/machines`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${license?.attributes?.metadata?.token}`,
+        'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
         'Accept': 'application/json',
       },
     })

@@ -10,8 +10,8 @@ const LicenseInfo = () => {
   return (
     <div className={styles.LicenseInfo}>
       <h2>
-        <small>{license?.attributes?.name || 'License key'}</small>
-        {license?.attributes?.key || 'N/A'}
+        <small>{license?.attributes?.name ?? 'License key'}</small>
+        {license?.attributes?.key ?? 'N/A'}
         {validation?.valid
           ? <span className={styles.LicenseInfoValidTag}>Valid</span>
           : <span className={styles.LicenseInfoInvalidTag}>Invalid</span>}

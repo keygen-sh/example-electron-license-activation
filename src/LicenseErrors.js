@@ -34,7 +34,7 @@ const LicenseErrors = () => {
                   {error.detail}
                 </td>
                 <td>
-                  <code>{error.code || 'N/A'}</code>
+                  <code>{error.code ?? 'N/A'}</code>
                 </td>
                 <td>
                   <button type='button' onClick={e => clearError(error)}>

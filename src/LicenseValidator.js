@@ -5,7 +5,7 @@ import styles from './LicenseValidator.scss'
 const LicenseKeyInput = ({ value, onChange, onSubmit }) => {
   return (
     <form onSubmit={e => (e.preventDefault(), onSubmit())}>
-      <input type='text' placeholder='XXXXXX-XXXXXX-XXXXXX-XXXXXX-XXXXXX-V3' value={value || ''} onChange={e => onChange(e.target.value)} required={true} />
+      <input type='text' placeholder='XXXXXX-XXXXXX-XXXXXX-XXXXXX-XXXXXX-V3' value={value ?? ''} onChange={e => onChange(e.target.value)} required={true} />
       <button type='submit'>
         Continue
       </button>
