@@ -12,7 +12,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "electron .",
-    "dev": "concurrently --kill-others --success first 'rm -rf build/ && parcel watch ./src/index.html -d build/ --public-url ./ --target electron --no-hmr' 'yarn start'",
+    "dev": "concurrently --kill-others --success first 'rm -rf build/ && parcel watch ./src/index.html -d build/ --public-url ./ --target electron --no-hmr' 'sleep 1 && yarn start'",
     "build": "rm -rf build/ && parcel build ./src/index.html -d build/ --public-url ./ --target electron",
     "dist": "rm -rf dist/ && yarn build && electron-builder build --publish never"
   },
