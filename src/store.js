@@ -1,14 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-
-const {
-  // NOTE(ezekg) Remove the default value here in a real app. This value is
-  //             only here for example purposes.
-  KEYGEN_ACCOUNT_ID = '1fddcec8-8dd3-4d8d-9b16-215cac0f9b52',
-  // TODO(ezekg) Add request signature verification to prevent MITM attacks
-  // TODO(ezekg) Add offline support?
-  // KEYGEN_PUBLIC_KEY,
-} = process.env
+import * as client from './client'
 
 const createEmitter = () => {
   const subscriptions = new Map()
@@ -71,21 +63,7 @@ export const useLicensingStore = createStore((set, get) => ({
   validateLicenseKey: async () => {
     const { key, fingerprint, listMachinesForLicense } = get()
 
-    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/licenses/actions/validate-key`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        meta: {
-          scope: { fingerprint },
-          key,
-        },
-      }),
-    })
-
-    const { meta, data, errors } = await res.json()
+    const { meta, data, errors } = await client.validateLicenseKeyWithFingerprint(key, fingerprint)
     if (errors) {
       return set(state => ({ ...state, errors }))
     }
@@ -101,32 +79,7 @@ export const useLicensingStore = createStore((set, get) => ({
   activateMachineForLicense: async ({ name, platform, version }) => {
     const { license, fingerprint, listMachinesForLicense, validateLicenseKey } = get()
 
-    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/machines`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        data: {
-          type: 'machine',
-          attributes: {
-            fingerprint,
-            name,
-            platform,
-            metadata: {
-              version,
-            },
-          },
-          relationships: {
-            license: { data: { type: 'license', id: license?.id } },
-          },
-        },
-      }),
-    })
-
-    const { errors } = await res.json()
+    const { errors } = await client.activateMachineForLicense(license, fingerprint, name, platform, version)
     if (errors) {
       // List machines to give the user the option to free up activation slots
       listMachinesForLicense()
@@ -147,19 +100,9 @@ export const useLicensingStore = createStore((set, get) => ({
   deactivateMachineForLicense: async id => {
     const { license, validateLicenseKey, listMachinesForLicense } = get()
 
-    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/machines/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
-        'Accept': 'application/json',
-      },
-    })
-
-    if (res.status !== 204) {
-      const { errors } = await res.json()
-      if (errors) {
-        return set(state => ({ ...state, errors }))
-      }
+    const { errors } = await client.deactivateMachineForLicense(license, id)
+    if (errors) {
+      return set(state => ({ ...state, errors }))
     }
 
     // Clear errors if deactivation was successful
@@ -175,15 +118,7 @@ export const useLicensingStore = createStore((set, get) => ({
   listMachinesForLicense: async () => {
     const { license } = get()
 
-    const res = await fetch(`https://api.keygen.sh/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/machines`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
-        'Accept': 'application/json',
-      },
-    })
-
-    const { data, errors } = await res.json()
+    const { data, errors } = await client.listMachinesForLicense(license)
     if (errors) {
       return set(state => ({ ...state, errors }))
     }

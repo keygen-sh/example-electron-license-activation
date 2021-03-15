@@ -7,6 +7,7 @@ an in-app software licensing portal with the following functionality:
 1. License key validation
 2. Device fingerprinting and activation
 3. Device management
+4. Signature verification
 
 ![image](https://user-images.githubusercontent.com/6979737/110702255-ea031180-81b7-11eb-9e07-c92134b06410.png)
 
@@ -59,6 +60,14 @@ First up, configure a couple environment variables:
 ```bash
 # Your Keygen account ID
 export KEYGEN_ACCOUNT_ID="YOUR_KEYGEN_ACCOUNT_ID"
+
+# Your Keygen account's public key (make sure it is *exact* - newlines and all)
+export KEYGEN_PUBLIC_KEY=$(printf %b \
+  '-----BEGIN PUBLIC KEY-----\n' \
+  'zdL8BgMFM7p7+FGEGuH1I0KBaMcB/RZZSUu4yTBMu0pJw2EWzr3CrOOiXQI3+6bA\n' \
+  # …
+  'efK41Ml6OwZB3tchqGmpuAsCEwEAaQ==\n' \
+  '-----END PUBLIC KEY-----')
 ```
 
 These environment variables will be automatically inlined into the
