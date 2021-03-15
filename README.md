@@ -4,10 +4,10 @@ A minimal [Electron](https://electronjs.org) v12 + [React](https://reactjs.org) 
 with [Parcel](https://github.com/parcel-bundler/parcel), showcasing how to implement
 an in-app software licensing portal with the following functionality:
 
-1. License key validation
-2. Device fingerprinting and activation
-3. Device management
-4. Signature verification
+1. [License key validation](https://keygen.sh/docs/api/#licenses-actions-validate-key)
+2. Device fingerprinting and [activation](https://keygen.sh/docs/api/#machines-create)
+3. [Device management](https://keygen.sh/docs/api/#machines-list) and [deactivation](https://keygen.sh/docs/api/#machines-delete)
+4. [Signature verification](https://keygen.sh/docs/api/#request-signatures)
 
 ![image](https://user-images.githubusercontent.com/6979737/110702255-ea031180-81b7-11eb-9e07-c92134b06410.png)
 
