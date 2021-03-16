@@ -6,9 +6,13 @@ const { KEYGEN_PUBLIC_KEY } = process.env
 const { KEYGEN_ACCOUNT_ID } = process.env
 
 // See: https://keygen.sh/docs/api/#request-signatures
-async function verify(body, signature) {
+async function verify(status, body, signature) {
   if (signature == null) {
-    return
+    if (status >= 400 && status <= 599) {
+      return // Some error payloads are not signed (e.g. authentication)
+    }
+
+    throw new Error('Signature was expected but is missing')
   }
 
   const verifier = crypto.createVerify('sha256')
@@ -26,11 +30,14 @@ async function parse(res) {
 
   // Verify the response signature's authenticity
   try {
-    const signature = res.headers.get('x-signature')
+    const { status, headers } = res
+    const signature = headers.get('x-signature')
     body = await res.text()
 
-    await verify(body, signature)
+    await verify(status, body, signature)
   } catch (e) {
+    console.error(e)
+
     return {
       errors: [{ title: 'Signature invalid', detail: 'Response signature was invalid', code: 'SIGNATURE_INVALID' }]
     }
