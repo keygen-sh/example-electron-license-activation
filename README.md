@@ -11,6 +11,37 @@ an in-app software licensing portal with the following functionality:
 
 ![image](https://user-images.githubusercontent.com/6979737/110702255-ea031180-81b7-11eb-9e07-c92134b06410.png)
 
+## Running the example
+
+First up, configure a couple environment variables. The values below
+are for our `demo` account, which can be used in this example.
+
+```bash
+# Your Keygen account's public key (make sure it is *exact* - newlines and all)
+export KEYGEN_PUBLIC_KEY=$(base64 --decode LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF6UEFzZURZdXBLNzhaVWFTYkd3NwpZeVVDQ2VLby8xWHFUQUNPY21UVEhIR2dlSGFjTEsyajlVcmJUbGhXNWg4VnlvMGlVRUhyWTFLZ2Y0d3dpR2dGCmgwWWMrb0RXRGhxMWJJZXJ0STAzQUU0MjBMYnBVZjZPVGlvWCtuWTBFSW54WEYzSjdhQWR4L1IvbllnUkpyTFoKOUFUV2FRVlNnZjN2dHhDdEN3VWVLeEtaSTQxR0EvOUtIVGNDbWQzQnJ5QVExcGlZUHIrcXJFR2YyTkRKZ3IzVwp2VnJNdG5qZW9vcmRBYUNUeVlLdGZtNTZXR1hlWHI0M2RmZGVqQnVJa0k1a3FTendWeW94aG5qRS9SajZ4a3M4CmZmSCtka0FQTndtMElweFhKZXJ5YmptUFd5djdpeVhFVU44Q0tHKzY0MzBEN05vWUhwL2M5OTFaSFFCVXM1OWcKdndJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==)
+
+# Your Keygen account ID
+export KEYGEN_ACCOUNT_ID="1fddcec8-8dd3-4d8d-9b16-215cac0f9b52"
+```
+
+These environment variables will be automatically inlined into the
+application's source code during the build process. You can either run
+each line above within your terminal session before building the app,
+or you can add the above contents to your `~/.bashrc` file and then
+run `source ~/.bashrc` after saving the file.
+
+Next, install dependencies with [`yarn`](https://yarnpkg.comg):
+
+```
+yarn
+```
+
+Then start the app in dev mode:
+
+```
+yarn dev
+```
+
 ## Configuring a license policy
 
 Visit [your dashboard](https://app.keygen.sh/policies) and create a new
@@ -52,41 +83,6 @@ We're doing this so that the end-user does not need to worry about
 entering the activation token, or that it even exists. Alternatively,
 you could adjust the code to prompt the user for this value, similary
 to how we're already prompting for their license key.
-
-## Running the example
-
-First up, configure a couple environment variables:
-
-```bash
-# Your Keygen account ID
-export KEYGEN_ACCOUNT_ID="YOUR_KEYGEN_ACCOUNT_ID"
-
-# Your Keygen account's public key (make sure it is *exact* - newlines and all)
-export KEYGEN_PUBLIC_KEY=$(printf %b \
-  '-----BEGIN PUBLIC KEY-----\n' \
-  'zdL8BgMFM7p7+FGEGuH1I0KBaMcB/RZZSUu4yTBMu0pJw2EWzr3CrOOiXQI3+6bA\n' \
-  # …
-  'efK41Ml6OwZB3tchqGmpuAsCEwEAaQ==\n' \
-  '-----END PUBLIC KEY-----')
-```
-
-These environment variables will be automatically inlined into the
-application's source code during the build process. You can either run
-each line above within your terminal session before building the app,
-or you can add the above contents to your `~/.bashrc` file and then
-run `source ~/.bashrc` after saving the file.
-
-Next, install dependencies with [`yarn`](https://yarnpkg.comg):
-
-```
-yarn
-```
-
-Then start the app in dev mode:
-
-```
-yarn dev
-```
 
 ## Building and packaging
 
