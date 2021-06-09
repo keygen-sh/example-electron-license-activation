@@ -1,6 +1,6 @@
 {
   "name": "example-electron-license-activation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "description": "An example of how to implement software licensing and device activation in an Electron application",
   "main": "main.js",
