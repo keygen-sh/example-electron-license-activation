@@ -9,11 +9,9 @@
     "email": "support@keygen.sh",
     "url": "https://github.com/keygen-sh"
   },
-  "scripts": {
-    "postinstall": "yarn electron-rebuild"
-  },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "electron-updater": "^4.3.9",
     "node-machine-id": "^1.1.12",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

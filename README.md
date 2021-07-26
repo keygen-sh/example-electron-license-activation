@@ -5,30 +5,28 @@ with [Parcel](https://github.com/parcel-bundler/parcel), showcasing how to imple
 an in-app software licensing portal with the following functionality:
 
 1. [License key validation](https://keygen.sh/docs/api/#licenses-actions-validate-key)
-2. Device fingerprinting and [activation](https://keygen.sh/docs/api/#machines-create)
-3. [Device management](https://keygen.sh/docs/api/#machines-list) and [deactivation](https://keygen.sh/docs/api/#machines-delete)
-4. [Signature verification](https://keygen.sh/docs/api/#response-signatures)
+1. Device fingerprinting and [activation](https://keygen.sh/docs/api/#machines-create)
+1. [Device management](https://keygen.sh/docs/api/#machines-list) and [deactivation](https://keygen.sh/docs/api/#machines-delete)
+1. [Signature verification](https://keygen.sh/docs/api/#response-signatures)
+1. [Auto-updates](https://keygen.sh/docs/api/#releases-actions-upgrade-by-version)
 
 ![image](https://user-images.githubusercontent.com/6979737/110702255-ea031180-81b7-11eb-9e07-c92134b06410.png)
 
 ## Running the example
 
-First up, configure a couple environment variables. The values below
-are for our `demo` account, which can be used in this example.
+First up, configure a couple application variables. The values below, embedded
+within the app, are for our `demo` account.
 
 ```bash
-# Your Keygen account's public key (make sure it is *exact* - newlines and all)
-export KEYGEN_PUBLIC_KEY=$(echo -n LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF6UEFzZURZdXBLNzhaVWFTYkd3NwpZeVVDQ2VLby8xWHFUQUNPY21UVEhIR2dlSGFjTEsyajlVcmJUbGhXNWg4VnlvMGlVRUhyWTFLZ2Y0d3dpR2dGCmgwWWMrb0RXRGhxMWJJZXJ0STAzQUU0MjBMYnBVZjZPVGlvWCtuWTBFSW54WEYzSjdhQWR4L1IvbllnUkpyTFoKOUFUV2FRVlNnZjN2dHhDdEN3VWVLeEtaSTQxR0EvOUtIVGNDbWQzQnJ5QVExcGlZUHIrcXJFR2YyTkRKZ3IzVwp2VnJNdG5qZW9vcmRBYUNUeVlLdGZtNTZXR1hlWHI0M2RmZGVqQnVJa0k1a3FTendWeW94aG5qRS9SajZ4a3M4CmZmSCtka0FQTndtMElweFhKZXJ5YmptUFd5djdpeVhFVU44Q0tHKzY0MzBEN05vWUhwL2M5OTFaSFFCVXM1OWcKdndJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg== | base64 --decode)
+# Your Keygen account's Ed25519 verify key (make sure it is *exact* - newlines and all)
+KEYGEN_VERIFY_KEY="MCowBQYDK2VwAyEA6GAeSLaTg7pSAkX9B5cemD0G0ixCV8/YIwRgFHnO54g="
 
 # Your Keygen account ID
-export KEYGEN_ACCOUNT_ID="1fddcec8-8dd3-4d8d-9b16-215cac0f9b52"
-```
+KEYGEN_ACCOUNT_ID="1fddcec8-8dd3-4d8d-9b16-215cac0f9b52"
 
-These environment variables will be automatically inlined into the
-application's source code during the build process. You can either run
-each line above within your terminal session before building the app,
-or you can add the above contents to your `~/.bashrc` file and then
-run `source ~/.bashrc` after saving the file.
+# Your Keygen product ID
+KEYGEN_PRODUCT_ID="7071feff-b5f3-434a-83c1-3ab3f3592325"
+```
 
 Next, install dependencies with [`yarn`](https://yarnpkg.comg):
 

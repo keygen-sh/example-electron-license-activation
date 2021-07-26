@@ -1,10 +1,9 @@
 import crypto from 'crypto'
 import url from 'url'
 
-// NOTE(ezekg) Using multiple assignments here due to this bug:
-//             https://github.com/jordansexton/babel-plugin-transform-inline-environment-variables/issues/2
-const { KEYGEN_PUBLIC_KEY } = process.env
-const { KEYGEN_ACCOUNT_ID } = process.env
+const KEYGEN_VERIFY_KEY = 'MCowBQYDK2VwAyEA6GAeSLaTg7pSAkX9B5cemD0G0ixCV8/YIwRgFHnO54g='
+const KEYGEN_ACCOUNT_ID = '1fddcec8-8dd3-4d8d-9b16-215cac0f9b52'
+const KEYGEN_PRODUCT_ID = '7071feff-b5f3-434a-83c1-3ab3f3592325'
 const KEYGEN_BASE_URL = 'https://api.keygen.sh'
 
 // There is likely a third-party module for this, but we want to show
@@ -34,7 +33,6 @@ async function verify({ method, url, date, body, signature }) {
   }
 
   const uri = url.pathname + url.search
-  const verifier = crypto.createVerify('sha256')
   const hash = crypto.createHash('sha256').update(body)
   const digest = `sha-256=${hash.digest('base64')}`
   const data = [
@@ -44,12 +42,20 @@ async function verify({ method, url, date, body, signature }) {
     `digest: ${digest}`,
   ].join('\n')
 
-  verifier.write(data)
-  verifier.end()
+  const verifyKey = crypto.createPublicKey({
+    key: Buffer.from(KEYGEN_VERIFY_KEY, 'base64'),
+    format: 'der',
+    type: 'spki',
+  })
 
-  const ok = verifier.verify(KEYGEN_PUBLIC_KEY, signature, 'base64')
+  console.log({data})
+
+  const signatureBytes = Buffer.from(signature, 'base64')
+  const dataBytes = Buffer.from(data)
+
+  const ok = crypto.verify(null, dataBytes, verifyKey, signatureBytes)
   if (!ok) {
-    throw new Error('Signature does not match')
+    throw new Error(`Signature does not match: ${signature}`)
   }
 }
 
@@ -88,13 +94,13 @@ export async function validateLicenseKeyWithFingerprint(key, fingerprint) {
   const req = new Request(`${KEYGEN_BASE_URL}/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/licenses/actions/validate-key`, {
     method: 'POST',
     headers: {
-      'Keygen-Accept-Signature': 'algorithm="rsa-sha256"',
+      'Keygen-Accept-Signature': 'algorithm="ed25519"',
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     },
     body: JSON.stringify({
       meta: {
-        scope: { fingerprint },
+        scope: { product: KEYGEN_PRODUCT_ID, fingerprint },
         key,
       },
     }),
@@ -119,7 +125,7 @@ export async function activateMachineForLicense(license, fingerprint, name, plat
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
-      'Keygen-Accept-Signature': 'algorithm="rsa-sha256"',
+      'Keygen-Accept-Signature': 'algorithm="ed25519"',
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     },
@@ -158,7 +164,7 @@ export async function deactivateMachineForLicense(license, id) {
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
-      'Keygen-Accept-Signature': 'algorithm="rsa-sha256"',
+      'Keygen-Accept-Signature': 'algorithm="ed25519"',
       'Accept': 'application/json',
     },
   })
@@ -176,7 +182,7 @@ export async function listMachinesForLicense(license) {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
-      'Keygen-Accept-Signature': 'algorithm="rsa-sha256"',
+      'Keygen-Accept-Signature': 'algorithm="ed25519"',
       'Accept': 'application/json',
     },
   })

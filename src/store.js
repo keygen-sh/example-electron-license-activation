@@ -44,7 +44,7 @@ export const useLicensingStore = createStore((set, get) => ({
   fingerprint: ipcRenderer.sendSync('GET_DEVICE_FINGERPRINT'),
 
   // The current license key
-  key: '7ECED4-AAC314-2F0C99-D81643-4C66B9-V3',
+  key: '07953E-6E90C6-22BAD2-A66EFD-62923B-V3',
 
   // The result of the most recent license validation
   validation: null,
@@ -61,7 +61,7 @@ export const useLicensingStore = createStore((set, get) => ({
   setKey: key => set(state => ({ ...state, key })),
 
   validateLicenseKey: async () => {
-    const { key, fingerprint, listMachinesForLicense } = get()
+    const { key, fingerprint, listMachinesForLicense, checkForUpdates } = get()
 
     const { meta, data, errors } = await client.validateLicenseKeyWithFingerprint(key, fingerprint)
     if (errors) {
@@ -73,6 +73,11 @@ export const useLicensingStore = createStore((set, get) => ({
     // List machines for the license if it exists (regardless of validity)
     if (data != null) {
       listMachinesForLicense()
+    }
+
+    // Check for updates if license is valid
+    if (meta.valid) {
+      checkForUpdates()
     }
   },
 
@@ -127,6 +132,12 @@ export const useLicensingStore = createStore((set, get) => ({
       ...state,
       machines: data,
     }))
+  },
+
+  checkForUpdates: async () => {
+    const { license } = get()
+
+    return ipcRenderer.send('CHECK_FOR_UPDATES', license)
   },
 
   clearError: error => {
