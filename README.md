@@ -8,7 +8,7 @@ an in-app software licensing portal with the following functionality:
 1. Device fingerprinting and [activation](https://keygen.sh/docs/api/#machines-create)
 1. [Device management](https://keygen.sh/docs/api/#machines-list) and [deactivation](https://keygen.sh/docs/api/#machines-delete)
 1. [Signature verification](https://keygen.sh/docs/api/#response-signatures)
-1. [Auto-updates](https://keygen.sh/docs/api/#releases-actions-upgrade-by-version)
+1. [Auto-updates](https://keygen.sh/docs/api/#releases)
 
 ![image](https://user-images.githubusercontent.com/6979737/110702255-ea031180-81b7-11eb-9e07-c92134b06410.png)
 
