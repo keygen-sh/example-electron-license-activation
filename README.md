@@ -19,7 +19,7 @@ within the app, are for our `demo` account. Feel free to find/replace to your
 own account's values.
 
 ```bash
-# Your Keygen account's Ed25519 verify key (make sure it is *exact* - newlines and all)
+# Your Keygen account's DER encoded Ed25519 verify key
 KEYGEN_VERIFY_KEY="MCowBQYDK2VwAyEA6GAeSLaTg7pSAkX9B5cemD0G0ixCV8/YIwRgFHnO54g="
 
 # Your Keygen account ID
