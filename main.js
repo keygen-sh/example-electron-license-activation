@@ -36,6 +36,7 @@ ipcMain.on('CHECK_FOR_UPDATES', async (_event, license) => {
   const options = {
     requestHeaders: { 'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}` },
     url: `${KEYGEN_BASE_URL}/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/artifacts/electron-example`,
+    useMultipleRangeRequest: false,
     provider: 'generic',
   }
 
@@ -49,7 +50,7 @@ ipcMain.on('CHECK_FOR_UPDATES', async (_event, license) => {
   }
 
   if (updater != null) {
-    updater.checkForUpdatesAndNotify()
+    updater.checkForUpdates()
   }
 })
 
