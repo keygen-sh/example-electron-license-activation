@@ -15,7 +15,8 @@ an in-app software licensing portal with the following functionality:
 ## Running the example
 
 First up, configure a couple application variables. The values below, embedded
-within the app, are for our `demo` account.
+within the app, are for our `demo` account. Feel free to find/replace to your
+own account's values.
 
 ```bash
 # Your Keygen account's Ed25519 verify key (make sure it is *exact* - newlines and all)
