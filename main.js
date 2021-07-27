@@ -34,8 +34,7 @@ ipcMain.on('GET_DEVICE_FINGERPRINT', async event => {
 ipcMain.on('CHECK_FOR_UPDATES', async (_event, license) => {
   const { platform } = process
   const options = {
-    requestHeaders: { 'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}` },
-    url: `${KEYGEN_BASE_URL}/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/artifacts/electron-example`,
+    url: `${KEYGEN_BASE_URL}/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/artifacts/electron-example?token=${license?.attributes?.metadata?.token ?? ''}`,
     useMultipleRangeRequest: false,
     provider: 'generic',
   }
