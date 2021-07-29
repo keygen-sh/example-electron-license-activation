@@ -48,8 +48,6 @@ async function verify({ method, url, date, body, signature }) {
     type: 'spki',
   })
 
-  console.log({data})
-
   const signatureBytes = Buffer.from(signature, 'base64')
   const dataBytes = Buffer.from(data)
 
