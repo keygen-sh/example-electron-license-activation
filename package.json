@@ -1,8 +1,17 @@
 {
   "name": "example-electron-license-activation",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "An example of how to implement software licensing and device activation in an Electron application",
+  "keywords": [
+    "licensing",
+    "license keys",
+    "license activation",
+    "electron-builder",
+    "electron",
+    "keygen.sh",
+    "keygen"
+  ],
   "main": "main.js",
   "author": {
     "name": "Keygen",
@@ -14,9 +23,15 @@
     "start": "electron .",
     "dev": "concurrently --kill-others --success first 'rm -rf build/ && parcel watch ./src/index.html -d build/ --public-url ./ --target electron --no-hmr' 'sleep 1 && yarn start'",
     "build": "rm -rf build/ && parcel build ./src/index.html -d build/ --public-url ./ --target electron",
-    "dist": "rm -rf dist/ && yarn build && electron-builder build --publish never"
+    "dist": "rm -rf dist/ && yarn build && electron-builder build --publish always"
   },
   "build": {
+    "publish": {
+      "provider": "keygen",
+      "product": "7071feff-b5f3-434a-83c1-3ab3f3592325",
+      "account": "1fddcec8-8dd3-4d8d-9b16-215cac0f9b52",
+      "channel": "stable"
+    },
     "appId": "com.keygen.example",
     "directories": {
       "output": "dist"
@@ -48,6 +63,7 @@
       "icon": "build/icon.png"
     },
     "mac": {
+      "target": "zip",
       "category": "public.app-category.developer-tools"
     },
     "files": [
@@ -57,7 +73,8 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "electron-updater": "^4.3.9",
+    "electron-log": "^4.4.1",
+    "electron-updater": "^4.5.0",
     "node-machine-id": "^1.1.12",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
@@ -69,7 +86,7 @@
     "@babel/preset-react": "^7.12.1",
     "concurrently": "^5.3.0",
     "electron": "^12.0.1",
-    "electron-builder": "^22.11.7",
+    "electron-builder": "^22.13.0",
     "electron-reload": "^1.5.0",
     "parcel-bundler": "^1.12.4",
     "postcss-modules": "^3.2.2",

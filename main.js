@@ -1,14 +1,11 @@
 const console = require('console')
 const { app, ipcMain, BrowserWindow } = require('electron')
-const { MacUpdater } = require('electron-updater')
+const { autoUpdater } = require('electron-updater')
 const { machineId } = require('node-machine-id')
 
 if (!app.isPackaged) {
   require('electron-reload')(__dirname)
 }
-
-const KEYGEN_ACCOUNT_ID = '1fddcec8-8dd3-4d8d-9b16-215cac0f9b52'
-const KEYGEN_BASE_URL = 'https://api.keygen.sh'
 
 // Handle sending app version to renderer
 ipcMain.on('GET_APP_VERSION', event => event.returnValue = app.getVersion())
@@ -32,25 +29,16 @@ ipcMain.on('GET_DEVICE_FINGERPRINT', async event => {
 
 // Handle auto-updates
 ipcMain.on('CHECK_FOR_UPDATES', async (_event, license) => {
-  const { platform } = process
-  const options = {
-    url: `${KEYGEN_BASE_URL}/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/artifacts/electron-example?token=${license?.attributes?.metadata?.token ?? ''}`,
-    useMultipleRangeRequest: false,
-    provider: 'generic',
+  if (process.env.NODE_ENV !== 'production') {
+    const log = require('electron-log')
+
+    log.transports.file.level = 'debug'
+
+    autoUpdater.logger = log
   }
 
-  let updater = null
-
-  switch (platform) {
-    case 'darwin':
-      updater = new MacUpdater(options)
-
-      break
-  }
-
-  if (updater != null) {
-    updater.checkForUpdates()
-  }
+  autoUpdater.addAuthHeader(`Bearer ${license?.attributes?.metadata?.token ?? ''}`)
+  autoUpdater.checkForUpdatesAndNotify()
 })
 
 async function createWindow() {
