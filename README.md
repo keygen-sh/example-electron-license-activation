@@ -48,8 +48,9 @@ policy with the following attributes:
 
 ```json
 {
+  "authenticationStrategy": "LICENSE",
   "requireFingerprintScope": true,
-  "maxMachines": 5,
+  "maxMachines": 3,
   "concurrent": false,
   "floating": true,
   "strict": true
@@ -58,30 +59,6 @@ policy with the following attributes:
 
 The `maxMachines` value can be whatever you prefer. The example should
 also work for a non-floating policy.
-
-## Creating an activation token
-
-In order to allow a license to perform machine activations and deactivations,
-you will need to create a new [activation token](https://keygen.sh/docs/api/#licenses-relationships-activation-tokens).
-Activation tokens allow a limited number of machine activations for a
-single license, which make them ideal for performing activations from
-a client-side environment.
-
-**⚠️ This example assumes that, once created, the activation token be added
-into the license's `metadata` attribute under the `token` key: ⚠️**
-
-```json
-{
-  "metadata": {
-    "token": "activ-abc8f8323c680b93082fc5fdb3abcb31v3"
-  }
-}
-```
-
-We're doing this so that the end-user does not need to worry about
-entering the activation token, or that it even exists. Alternatively,
-you could adjust the code to prompt the user for this value, similary
-to how we're already prompting for their license key.
 
 ## Building and packaging
 

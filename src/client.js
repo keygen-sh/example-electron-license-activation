@@ -122,7 +122,7 @@ export async function activateMachineForLicense(license, fingerprint, name, plat
   const req = new Request(`${KEYGEN_BASE_URL}/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/machines`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
+      'Authorization': `License ${license?.attributes?.key ?? ''}`,
       'Keygen-Accept-Signature': 'algorithm="ed25519"',
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -161,7 +161,7 @@ export async function deactivateMachineForLicense(license, id) {
   const req = new Request(`${KEYGEN_BASE_URL}/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/machines/${id}`, {
     method: 'DELETE',
     headers: {
-      'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
+      'Authorization': `License ${license?.attributes?.key ?? ''}`,
       'Keygen-Accept-Signature': 'algorithm="ed25519"',
       'Accept': 'application/json',
     },
@@ -179,7 +179,7 @@ export async function listMachinesForLicense(license) {
   const req = new Request(`${KEYGEN_BASE_URL}/v1/accounts/${KEYGEN_ACCOUNT_ID ?? ''}/machines`, {
     method: 'GET',
     headers: {
-      'Authorization': `Bearer ${license?.attributes?.metadata?.token ?? ''}`,
+      'Authorization': `License ${license?.attributes?.key ?? ''}`,
       'Keygen-Accept-Signature': 'algorithm="ed25519"',
       'Accept': 'application/json',
     },
