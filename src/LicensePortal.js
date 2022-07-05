@@ -35,7 +35,7 @@ const LicensePortal = () => {
     )
   }
 
-  switch (validation?.constant) {
+  switch (validation?.code) {
     case 'FINGERPRINT_SCOPE_MISMATCH':
     case 'NO_MACHINES':
     case 'NO_MACHINE':

@@ -43,7 +43,7 @@ const LicenseInfo = () => {
                 <strong>{machines.length}/{license?.attributes?.maxMachines || 0}</strong>
               </td>
               <td>
-                <code>{validation?.constant}</code>
+                <code>{validation?.code}</code>
               </td>
               <td>
                 <button type='button' onClick={e => reset()}>
